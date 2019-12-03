@@ -1,9 +1,27 @@
 #include <stdlib.h>
 
+char			*ft_strdup(const char *s1)
+{
+	char		*s2;
+	size_t		i;
+
+	i = 0;
+	while (s1[i])
+		i += 1;
+	if (!(s2 = (char *)malloc(sizeof(char) * (i + 1))))
+		return (NULL);
+	i = -1;
+	while (s1[++i])
+		s2[i] = s1[i];
+	s2[i] = '\0';
+	return (s2);
+}
+
 void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
+
 
 void	ft_putstr_fd(char *s, int fd)
 {
@@ -18,6 +36,18 @@ void	ft_putstr_fd(char *s, int fd)
 			s++;
 		}
 	}
+}
+
+void	outn(char *s)
+{
+	ft_putstr_fd(s, 1);
+	ft_putstr_fd("\n", 1);
+}
+
+
+void	out(char *s)
+{
+	ft_putstr_fd(s, 1);
 }
 
 void	ft_putnbr_fd(int n, int fd)
@@ -36,6 +66,17 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putnbr_fd(n / 10, fd);
 	n = n % 10 + 48;
 	write(fd, &n, 1);
+}
+
+void	putnbr(int nbr)
+{
+	ft_putnbr_fd(nbr, 1);
+}
+
+void outnbrn(int nbr)
+{
+	putnbr(nbr);
+	ft_putstr_fd("\n", 1);
 }
 
 size_t	ft_wordcount(char const *str, char delimiter)
@@ -113,7 +154,6 @@ char	**ft_split(char const *str, char delimiter)
 	list[j] = NULL;
 	return (list);
 }
-
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

@@ -18,6 +18,7 @@ int	get_next_line(int fd, char **line)
 	char		*chunk;
 	char		*prev;
 	char		*join;
+	int			buffer_offset;
 
 	position = 0;
 	prev = (char*)malloc(0); // me aseguro de que siempre se pueda liberar
@@ -27,25 +28,38 @@ int	get_next_line(int fd, char **line)
 			return (-1);
 		if (position + bytes_read < last_position)
 		{
-
+			position += bytes_read;
+			ft_putstr_fd("pos: ",1);
+			ft_putnbr_fd(position, 1);
+			ft_putstr_fd("\n",1);
+			continue;
 		}
-		else
+		buffer_offset = 0;
+		while (position + buffer_offset < last_position )
+			buffer_offset++;
+		if (buffer[buffer_offset + 1] == '\n')
 		{
-			/* code */
-		}
-		if (buffer[0] == '\n')
+			ft_putstr_fd("aqui",1);
+			last_position++;
 			return (1);
+		}
+		chunk = buffer + buffer_offset;
+		ft_putstr_fd(chunk,1);
 		// suma a la linea acumulada.
-		chunk = *ft_split(buffer, '\n');
+		chunk = *ft_split(chunk, '\n');
 		join = ft_strjoin(prev, chunk);
 		free(prev);
 		prev = join;
 		*line = prev;
-		if (ft_strlen(chunk) < BUFFER_SIZE)
-		// termina y devuelve
+		position = position + ft_strlen(chunk);
+		last_position = position;
+		if (ft_strlen(chunk) < bytes_read)
+		// fin de linea
 		{
 			free(chunk);
-			ft_putstr_fd("- linea -\n",1);
+			ft_putstr_fd("last pos: ",1);
+			ft_putnbr_fd(last_position, 1);
+			ft_putstr_fd("\n",1);
 			return (1);
 		}
 	}
@@ -62,8 +76,11 @@ int main(int argc, char const *argv[])
 	char	**line;
 	char	*ptr;
 	*line = ptr;
-	get_next_line(fd, line);
-	ft_putstr_fd(*line, 1);
+	while (get_next_line(fd, line))
+	{
+		ft_putstr_fd(*line, 1);
+		ft_putchar_fd('\n',1);
+	}
 	close(fd);
 	return 0;
 }
