@@ -73,7 +73,7 @@ void	putnbr(int nbr)
 	ft_putnbr_fd(nbr, 1);
 }
 
-void outnbrn(int nbr)
+void lognbrn(int nbr)
 {
 	putnbr(nbr);
 	ft_putstr_fd("\n", 1);
