@@ -63,7 +63,7 @@ char	*carve_line(char *str)
 		cut[i] = str[i];
 		i++;
 	}
-	cut[i] = 0;
+	cut[size] = 0;
 	move_str_left(str, size);
 	return (cut);
 }
@@ -110,7 +110,8 @@ int main(int argc, char const *argv[])
 {
 	// int		fd = open("nums", O_RDONLY);
 	// int		fd = open("lines", O_RDONLY);
-	int		fd = open("lorem", O_RDONLY);
+	// int		fd = open("lorem", O_RDONLY);
+	int		fd = open("t1", O_RDONLY);
 
 	char *line;
 

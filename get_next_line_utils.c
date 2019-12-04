@@ -43,7 +43,6 @@ void	outn(char *s)
 	ft_putstr_fd("\n", 1);
 }
 
-
 void	out(char *s)
 {
 	ft_putstr_fd(s, 1);
@@ -87,6 +86,28 @@ size_t		ft_strlen(const char *str)
 		s++;
 	return (s);
 }
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t i;
+
+	if (dst == NULL || src == NULL)
+		return (0);
+	if (dstsize == 0)
+		return (ft_strlen(src));
+	i = 0;
+	if (dstsize > 0)
+	{
+		while (i < dstsize - 1 && src[i] != 0)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = 0;
+	}
+	return (ft_strlen(src));
+}
+
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
