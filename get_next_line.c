@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#include "get_next_line_utils.c"
-
-#ifndef BUFFER_SIZE
-#define	BUFFER_SIZE 1
-#endif
+#include "get_next_line.h"
 
 void	move_str_left(char *str, unsigned int n)
 {
@@ -36,8 +27,7 @@ void	move_str_left(char *str, unsigned int n)
 	}
 }
 
-// por que no funciona un **char con char[] ???
-char	*carve_line(char *str)
+char	*carve_line(char *str, int *newline_found)
 {
 	unsigned int	size;
 	unsigned int	i;
@@ -50,7 +40,7 @@ char	*carve_line(char *str)
 	{
 		if (str[size] == '\n')
 		{
-			size++;
+			*newline_found = 1;
 			break;
 		}
 		size++;
@@ -64,76 +54,43 @@ char	*carve_line(char *str)
 		i++;
 	}
 	cut[size] = 0;
-	move_str_left(str, size);
+	move_str_left(str, size + 1);
 	return (cut);
 }
 
 int	get_next_line(int fd, char **line)
 {
-	static char	buffer[BUFFER_SIZE];
-	char		*newline;
+	static char	buffer[BUFFER_SIZE + 1];
 	char		*temp;
 	char		*carved;
 	int			n;
+	int			newline_found;
 
-	newline = ft_strdup("");
-	while (newline[ft_strlen(newline) - 1] != '\n')
+	buffer[BUFFER_SIZE] = 0;
+	newline_found = 0;
+	*line = ft_strdup("");
+	while (!newline_found)
 	{
 		while (ft_strlen(buffer) > 0)
 		{
-			temp = newline;
-			carved = carve_line(buffer);
-			newline = ft_strjoin(newline, carved);
+			temp = *line;
+			carved = carve_line(buffer, &newline_found);
+			*line = ft_strjoin(*line, carved);
 			free (temp);
 			free (carved);
-			if (newline[ft_strlen(newline) - 1] == '\n')
-			{
-				*line = newline;
+			if (newline_found)
 				return (1);
-			}
 		}
 		n = read(fd, buffer, BUFFER_SIZE);
 		if (n == 0)
 		{
-			outn("-EOF-");
 			return (0);
 		}
 		if (n < 0)
 		{
-			outn("-ERROR-");
 			return (-1);
 		}
 	}
 	return (0);
 }
 
-int main(void)
-{
-	// int		fd = open("nums", O_RDONLY);
-	// int		fd = open("lines", O_RDONLY);
-	int		fd = open("lorem", O_RDONLY);
-	// int		fd = open("t1", O_RDONLY);
-
-	char *line;
-
-	// get_next_line(fd, &line);
-
-	// for (size_t i = 0; i < 3; i++)
-	// {
-	// 	get_next_line(fd, &line);
-	// 	ft_putstr_fd("line: ", 1);
-	// 	ft_putstr_fd(line, 1);
-	// 	ft_putchar_fd('\n',1);
-	// 	free(line);
-	// }
-
-	while (get_next_line(fd, &line))
-	{
-		out("line: ");
-		ft_putstr_fd(line, 1);
-		ft_putchar_fd('\n',1);
-		free(line);
-	}
-	close(fd);
-	return 0;
-}
