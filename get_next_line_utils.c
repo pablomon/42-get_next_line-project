@@ -22,7 +22,6 @@ void	ft_putchar_fd(char c, int fd)
 	write(fd, &c, 1);
 }
 
-
 void	ft_putstr_fd(char *s, int fd)
 {
 	char c;
@@ -68,33 +67,15 @@ void	ft_putnbr_fd(int n, int fd)
 	write(fd, &n, 1);
 }
 
-void	putnbr(int nbr)
+void	outnbr(int nbr)
 {
 	ft_putnbr_fd(nbr, 1);
 }
 
-void lognbrn(int nbr)
+void outnbrn(int nbr)
 {
-	putnbr(nbr);
+	outnbr(nbr);
 	ft_putstr_fd("\n", 1);
-}
-
-size_t	ft_wordcount(char const *str, char delimiter)
-{
-	size_t	i;
-	size_t	w;
-
-	i = 0;
-	w = 0;
-	while (str[i])
-	{
-		if (str[i] != delimiter)
-			w += 1;
-		while (str[i] != delimiter && str[i + 1])
-			i += 1;
-		i += 1;
-	}
-	return (w);
 }
 
 size_t		ft_strlen(const char *str)
@@ -105,54 +86,6 @@ size_t		ft_strlen(const char *str)
 	while (str[s])
 		s++;
 	return (s);
-}
-
-char	*ft_strncpy(char *dest, const char *src, size_t n)
-{
-	char *ptr;
-
-	ptr = dest;
-	while (n > 0 && *src != '\0')
-	{
-		if (*src)
-			*dest = *src;
-		else
-			*dest = '\0';
-		dest++;
-		src++;
-		n--;
-	}
-	*dest = '\0';
-	return (ptr);
-}
-
-char	**ft_split(char const *str, char delimiter)
-{
-	unsigned int	i;
-	unsigned int	j;
-	char			**list;
-
-	if (str == NULL)
-		return (NULL);
-	list = (char**)malloc(sizeof(char*) * (ft_wordcount(str, delimiter) + 1));
-	if (!list)
-		return (NULL);
-	j = 0;
-	while (*str != 0)
-	{
-		i = 0;
-		while (str[i] != delimiter && str[i] != 0)
-			i++;
-		if (i)
-		{
-			list[j++] = ft_strncpy((char*)malloc(i + 1), str, i);
-			str = &str[i];
-		}
-		else
-			str++;
-	}
-	list[j] = NULL;
-	return (list);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
