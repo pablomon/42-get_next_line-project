@@ -9,7 +9,7 @@
 #define	BUFFER_SIZE 1
 #endif
 
-void	move_str_left(char *str, int n)
+void	move_str_left(char *str, unsigned int n)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -104,14 +104,15 @@ int	get_next_line(int fd, char **line)
 			return (-1);
 		}
 	}
+	return (0);
 }
 
-int main(int argc, char const *argv[])
+int main(void)
 {
 	// int		fd = open("nums", O_RDONLY);
 	// int		fd = open("lines", O_RDONLY);
-	// int		fd = open("lorem", O_RDONLY);
-	int		fd = open("t1", O_RDONLY);
+	int		fd = open("lorem", O_RDONLY);
+	// int		fd = open("t1", O_RDONLY);
 
 	char *line;
 
