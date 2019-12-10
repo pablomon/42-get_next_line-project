@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   gnl_tester.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/22 17:41:13 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 10:28:21 by mchardin         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdio.h>
@@ -31,7 +19,7 @@ int main()
 	printf("========== TEST 1 : The Alphabet =========\n");
 	printf("==========================================\n\n");
 
-	if (!(fd = open("alphabet", O_RDONLY)))
+	if (!(fd = open("42TESTERS-GNL/files/alphabet", O_RDONLY)))
 	{
 		printf("\nError in open\n");
 		return (0);
@@ -56,12 +44,11 @@ int main()
 		free(lineadress[j - 1]);
 	j = 1;
 
-/*
 	printf("\n==========================================\n");
 	printf("========= TEST 2 : Empty Lines ===========\n");
 	printf("==========================================\n\n");
 
-	if (!(fd = open("files/empty_lines", O_RDONLY)))
+	if (!(fd = open("42TESTERS-GNL/files/empty_lines", O_RDONLY)))
 	{
 		printf("\nError in open\n");
 		return (0);
@@ -87,7 +74,7 @@ int main()
 	printf("======== TEST 3 : The Empty File =========\n");
 	printf("==========================================\n\n");
 
-	if (!(fd = open("files/empty_file", O_RDONLY)))
+	if (!(fd = open("42TESTERS-GNL/files/empty_file", O_RDONLY)))
 	{
 		printf("\nError in open\n");
 		return (0);
@@ -113,7 +100,7 @@ int main()
 	printf("========= TEST 4 : One New Line ==========\n");
 	printf("==========================================\n\n");
 
-	if (!(fd = open("files/1_newline", O_RDONLY)))
+	if (!(fd = open("42TESTERS-GNL/files/1_newline", O_RDONLY)))
 	{
 		printf("\nError in open\n");
 		return (0);
@@ -139,7 +126,7 @@ int main()
 	printf("========= TEST 5 : Four New Lines ========\n");
 	printf("==========================================\n\n");
 
-	if (!(fd = open("files/4_newlines", O_RDONLY)))
+	if (!(fd = open("42TESTERS-GNL/files/4_newlines", O_RDONLY)))
 	{
 		printf("\nError in open\n");
 		return (0);
@@ -165,7 +152,7 @@ int main()
 	printf("============== TEST 6 : 42 ===============\n");
 	printf("==========================================\n\n");
 
-	if (!(fd = open("files/41_char", O_RDONLY)))
+	if (!(fd = open("42TESTERS-GNL/files/41_char", O_RDONLY)))
 	{
 		printf("\nError in open\n");
 		return (0);
@@ -179,7 +166,7 @@ int main()
 	printf("|%s\n", line);
 	free(line);
 	close(fd);
-	if (!(fd = open("files/42_char", O_RDONLY)))
+	if (!(fd = open("42TESTERS-GNL/files/42_char", O_RDONLY)))
 	{
 		printf("\nError in open\n");
 		return (0);
@@ -194,7 +181,7 @@ int main()
 	printf("|%s\n", line);
 	free(line);
 	close(fd);
-	if (!(fd = open("files/43_char", O_RDONLY)))
+	if (!(fd = open("42TESTERS-GNL/files/43_char", O_RDONLY)))
 	{
 		printf("\nError in open\n");
 		return (0);
@@ -222,12 +209,12 @@ int main()
 
 	int fd2;
 
-	if (!(fd = open("files/half_marge_top", O_RDONLY)))
+	if (!(fd = open("42TESTERS-GNL/files/half_marge_top", O_RDONLY)))
 	{
 		printf("\nError in open\n");
 		return (0);
 	}
-	if (!(fd2 = open("files/half_marge_bottom", O_RDONLY)))
+	if (!(fd2 = open("42TESTERS-GNL/files/half_marge_bottom", O_RDONLY)))
 	{
 		printf("\nError in open\n");
 		return (0);
@@ -264,5 +251,4 @@ int main()
 	else
 		printf("Not Good, you don't return -1 if no FD\n\n");
 	return (0);
-	*/
 }

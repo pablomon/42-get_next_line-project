@@ -4,8 +4,8 @@ int main(void)
 {
 	// int		fd = open("nums", O_RDONLY);
 	// int		fd = open("lines", O_RDONLY);
-	int		fd = open("lorem", O_RDONLY);
-	// int		fd = open("t1", O_RDONLY);
+	// int		fd = open("lorem", O_RDONLY);
+	int		fd = open("test", O_RDONLY);
 
 	char *line;
 
@@ -19,9 +19,6 @@ int main(void)
 	// 	ft_putchar_fd('\n',1);
 	// 	free(line);
 	// }
-
-	line = 0;
-		line[10] = 4;
 
 	while (get_next_line(fd, &line))
 	{
