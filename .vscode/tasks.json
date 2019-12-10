@@ -1,0 +1,31 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+	  {
+		"type": "shell",
+		"label": "build main.c",
+		"command": "/usr/bin/gcc -g main.c get_next_line.c get_next_line_utils.c",
+		"options": {
+			"cwd": "${workspaceFolder}",
+		  },
+		"problemMatcher": ["$gcc"],
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		}
+	  }
+	  {
+		"type": "shell",
+		"label": "build test.c",
+		"command": "/usr/bin/gcc -g gnl_tester.c get_next_line.c get_next_line_utils.c",
+		"options": {
+			"cwd": "${workspaceFolder}",
+		  },
+		"problemMatcher": ["$gcc"],
+		"group": {
+		  "kind": "build",
+		  "isDefault": true
+		}
+	  }
+	]
+  }
