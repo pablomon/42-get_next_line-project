@@ -1,5 +1,5 @@
 #ifndef BUFFER_SIZE
-#define	BUFFER_SIZE 6
+#define	BUFFER_SIZE 1
 #endif
 
 #include <stdlib.h>

@@ -41,28 +41,52 @@ static int	check_error(int n)
 	return (0);
 }
 
-int			get_next_line(int fd, char **line)
+void	init_gnl(char **buffer)
 {
-	static char	buffer[BUFFER_SIZE + 1];
-	char		*extracted;
+	if (*buffer)
+		return;
+	*buffer = (char*)malloc(sizeof(char*) * (BUFFER_SIZE + 1));
+	*buffer[0] = 0;
+}
+
+int	process_buffer(char **line, char *buffer)
+{
+	char	*temp;
+	char	*carved;
+	int		newline_found;
+
+	newline_found = 0;
+	temp = *line;
+	carved = extract_line(buffer, &newline_found);
+	*line = ft_strjoin(*line, carved);
+	free (temp);
+	free (carved);
+	return newline_found;
+}
+
+int	get_next_line(int fd, char **line)
+{
+	static char	*buffer[4096];
 	int			n;
 	int			newline_found;
 
+	if (!buffer[fd])
+	{
+		buffer[fd] = (char*)malloc(sizeof(char*) * (BUFFER_SIZE + 1));
+		buffer[fd][0] = 0;
+	}
 	newline_found = 0;
 	*line = ft_strdup("");
 	while (!newline_found)
 	{
-		while (buffer[0])
+		while (ft_strlen(buffer[fd]) > 0)
 		{
-			extracted = extract_line(buffer, &newline_found);
-			*line = ft_strjoin(*line, extracted);
-			free(extracted);
-			if (newline_found)
+			if (process_buffer(line, buffer[fd]))
 				return (1);
 		}
-		if ((n = read(fd, buffer, BUFFER_SIZE)) <= 0)
+		if ((n = read(fd, buffer[fd], BUFFER_SIZE)) <= 0)
 			return (check_error(n));
-		buffer[n] = 0;
+		buffer[fd][n] = 0;
 	}
 	return (0);
 }
